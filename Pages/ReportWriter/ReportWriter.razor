@@ -1,0 +1,93 @@
+﻿@page "/ReportWriter"
+@page "/ReportWriter/Preview"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JSRuntime
+@using blazor_samples.Data.Model;
+
+<div id="report-writer">
+    <form action="api/ReportWriter/generate" class="r-w-form" id="reportform" method="post">
+        <div class="r-w-container">
+            <div class="r-w-sample-container">
+                <div class="r-w-samples">
+                    <div class="r-w-samples-portrait">
+                        <div class="r-w-sample r-w-sample-portrait" onclick="onSampleClick({event: event, name:'website-visitor-analysis'})">
+                            <div class="r-w-sample-image" style="background-position-y: -2640px" />
+                            <div class="r-w-sample-title">Website Visitor Analysis</div>
+                        </div>
+                        <div class="r-w-sample r-w-sample-portrait" onclick="onSampleClick({event: event, name:'northwind-products-suppliers-report'})">
+                            <div class="r-w-sample-image" style="background-position-y: -960px" />
+                            <div class="r-w-sample-title">Northwind Products and Suppliers Report</div>
+                        </div>
+                        <div class="r-w-sample r-w-sample-portrait" onclick="onSampleClick({event: event, name:'sales-report'})">
+                            <div class="r-w-sample-image" style="background-position-y: 1200px" />
+                            <div class="r-w-sample-title">Sales Report</div>
+                        </div>
+                    </div>
+                    <div class="r-w-samples-landscape">
+                        <div class="r-w-sample r-w-sample-landscape r-w-sample-active" onclick="onSampleClick({event: event, name:'company-sales'})">
+                            <div class="r-w-sample-image" style="background-position-y: -160px" />
+                            <div class="r-w-sample-title">Company Sales</div>
+                        </div>
+                        <div class="r-w-sample r-w-sample-landscape" onclick="onSampleClick({event: event, name:'sales-order-detail'})">
+                            <div class="r-w-sample-image" style="background-position-y: -640px" />
+                            <div class="r-w-sample-title">Sales Order Detail</div>
+                        </div>
+                        <div class="r-w-sample r-w-sample-landscape" style="visibility: hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="r-w-property-container">
+                <div class="r-w-property-title">Properties</div>
+                <div class="r-w-property">
+                    <div class="r-w-property-name">Save as</div>
+                    <div class="r-w-property-value">
+                        <select id="dropdown" name="type">
+                            <option value="pdf">PDF</option>
+                            <option value="word">Word</option>
+                            <option value="excel">Excel</option>
+                            <option value="csv">CSV</option>
+                            <option value="html">HTML</option>
+                            <option value="ppt">PowerPoint</option>
+                            <option value="xml">XML</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" style="display:none" name="reportName" />
+                <input class="r-w-genearte e-button e-js e-ntouch e-btn-normal e-btn e-select e-widget" type="submit" value="Generate" />
+                @if (!Globals.isPhatomJSExist)
+                {
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        Data Visualization report items will not be exported properly since <a href="https://phantomjs.org/" target="_blank">PhanthomJS</a> was not found in this application.
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="source-description">
+    <p>
+        This demo allows you to <code>export</code> the Website Visitor Analysis, Northwind Products and Suppliers, Sales Report, Company Sales and Sales Order Detail Reports with popular file formats like PDF, HTML, Microsoft Word, and Microsoft Excel without previewing the report using our Report Viewer.
+    </p>
+    <p>
+        It uses <a href="https://phantomjs.org/" target="_blank">PhantomJS</a> for exporting the reports in various file formats.
+    </p>
+    <p>
+        More information about report writer can be found in this <a href="https://help.boldreports.com/embedded-reporting/blazor-reporting/report-writer/" target="_blank">documentation</a> section.
+    </p>
+</div>
+
+@code
+{
+    public void ActiveExportTypesDropdown()
+    {
+        JSRuntime.InvokeVoidAsync("activeExportTypesDropdown");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        ActiveExportTypesDropdown();
+    }
+}

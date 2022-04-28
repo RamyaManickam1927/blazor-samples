@@ -1,0 +1,97 @@
+@page "/ReportViewer/ExternalParameterReport"
+@page "/ReportViewer/ExternalParameterReport/Preview"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JSRuntime
+@using blazor_samples.Data;
+@using blazor_samples.Data.Model;
+
+
+<form>
+    <div class="r-w-container">
+        <div class="r-w-sample-container">
+            <ej-sample>
+                <div id="report-viewer"></div>
+            </ej-sample>
+        </div>
+        <div class="r-w-property-container">
+            <div class="r-w-property-title">Parameters</div>
+            <div class="r-w-property">
+                <div class="r-w-property-name" id="r-w-property-name-category"> Category</div>
+                <div class="r-w-property-value">
+                    <input type="text" id="category" />
+                </div>
+            </div>
+            <div class="r-w-property" id="r-w-property-subcategory">
+                <div class="r-w-property-name" id="r-w-property-name-subcategory">
+                    Sub Category
+                </div>
+                <div class="r-w-property-value" id="r-w-property-value-subcategory">
+                    <input type="text" id="subcategory" />
+                </div>
+            </div>
+            <div class="r-w-property" id="r-w-property-startdate">
+                <div class="r-w-property-name" id="r-w-property-name-startdate">
+                    Start Date
+                </div>
+                <div class="r-w-property-value" id="r-w-property-value-startdate">
+                    <input id="startdate" />
+                </div>
+            </div>
+            <div class="r-w-property" id="r-w-property-enddate">
+                <div class="r-w-property-name" id="r-w-property-name-enddate">
+                    End Date
+                </div>
+                <div class="r-w-property-value">
+                    <input id="enddate" />
+                </div>
+            </div>
+            <input type="button" class="r-w-genearte e-button e-js e-ntouch e-btn-normal e-btn e-select e-widget"
+                id="update" value="View Report" />
+
+        </div>
+    </div>
+</form>
+
+<div id="source-description">
+    <p>
+        The Product Line Sales RDL report represents the best performing sales people and stores using <a
+            href="https://help.boldreports.com/embedded-reporting/blazor-reporting/report-designer/designer-guide/report-items/tablix/"
+            target="_blank">Tablix</a> and <a
+            href="https://help.boldreports.com/embedded-reporting/blazor-reporting/report-designer/designer-guide/report-items/chart/" target="_blank">Chart</a>
+        report items.
+    </p>
+    <ul>
+        <li>
+            The sales details are organized by category and sub-category of products using the concept of external
+            report parameters which is designed using <a href="https://help.syncfusion.com/api/js/ejdropdownlist"
+                target="_blank">ejdropdownlist</a>. It allows users to filter Sub Category based on the selected
+            Category.
+        </li>
+        <li>Non cascading parameters namely start date and end date also used in this report.</li>
+    </ul>
+    <p>
+        More information about handling the report items can be found in this <a
+            href="https://help.boldreports.com/embedded-reporting/blazor-reporting/report-designer/designer-guide/report-items/"
+            target="_blank">documentation</a> section.
+    </p>
+</div>
+
+@code {
+    // ReportViewer options
+    BoldReportViewerOptions viewerOptions = new BoldReportViewerOptions();
+
+    // Used to render the Bold Report Viewer component in Blazor page.
+    public async void RenderReportViewer()
+    {
+        viewerOptions.ReportName = "product-line-sales.rdl";
+        viewerOptions.ServiceURL = Globals.SERVICE_URL;
+        viewerOptions.HideParameterBlock = true;
+        await JSRuntime.InvokeVoidAsync("BoldReports.RenderViewer", "report-viewer", viewerOptions);
+    }
+    // Initial rendering of Bold Report Viewer
+    protected override void OnAfterRender(bool firstRender)
+    {
+        RenderReportViewer();
+    }
+}

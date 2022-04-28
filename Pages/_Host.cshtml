@@ -1,0 +1,97 @@
+﻿@page "/"
+@namespace blazor_samples.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject blazor_samples.Data.Model.SampleData ds
+@using blazor_samples.Data.Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html style="height: 100%; width: 100%;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <component type="typeof(MetaData)" render-mode="ServerPrerendered" />
+    <meta property="og:image" content="https://www.boldreports.com/wp-content/uploads/2019/09/boldreports-ogp.png" alt="Reports sample for Blazor" />
+    <meta property="og:image:secure_url" content="https://www.boldreports.com/wp-content/uploads/2019/09/boldreports-ogp.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <base href="~/" />
+    <link rel="shortcut icon" runat="server" type="image/ico" href="~/favicon.ico">
+    <link rel="stylesheet" href="css/dependent/bootstrap.min.css" />
+    <link href="css/dependent/prism.css" rel="stylesheet" />
+
+    <link href="css/common/header.css" rel="stylesheet" />
+    <link href="css/common/index.css" rel="stylesheet" />
+    <link href="css/common/sidebar.css" rel="stylesheet" />
+    <link href="css/common/main-content.css" rel="stylesheet" />
+    <link href="css/common/common.css" rel="stylesheet" />
+    <link href="css/common/writer.css" rel="stylesheet" />
+    <link href="css/bold-reports/material/bold.reports.all.min.css" rel="stylesheet" />
+    <link href="css/bold-reports/material/bold.reportdesigner.min.css" rel="stylesheet" />
+    <link href="~/css/dependent/codemirror.css" rel="stylesheet" />
+    <link href="~/css/dependent/show-hint.css" rel="stylesheet" />
+    <link href="extensions/barcode.css" rel="stylesheet" />
+    <script src="~/scripts/dependent/jquery.min.js"></script>
+    <script src="~/scripts/dependent/jsrender.min.js"></script>
+    <script src="~/scripts/dependent/codemirror.js"></script>
+    <script src="~/scripts/dependent/show-hint.js"></script>
+    <script src="~/scripts/dependent/sql-hint.js"></script>
+    <script src="~/scripts/dependent/sql.js"></script>
+    <script src="~/scripts/dependent/vb.js"></script>
+    <script src="~/scripts/common/rdlcData.js"></script>
+    <script src="~/scripts/common/main-content-interop.js"></script>
+
+    <!--Used to render the gauge item. Add this script only if your report contains the gauge report item. -->
+    <script src="~/scripts/bold-reports/common/ej2-base.min.js"></script>
+    <script src="~/scripts/bold-reports/common/ej2-data.min.js"></script>
+    <script src="~/scripts/bold-reports/common/ej2-pdf-export.min.js"></script>
+    <script src="~/scripts/bold-reports/common/ej2-svg-base.min.js"></script>
+    <script src="~/scripts/bold-reports/data-visualization/ej2-lineargauge.min.js"></script>
+    <script src="~/scripts/bold-reports/data-visualization/ej2-circulargauge.min.js"></script>
+
+    <!--Used to render the map item. Add this script only if your report contains the map report item.-->
+    <script src="~/scripts/bold-reports/data-visualization/ej2-maps.min.js"></script>
+
+    <script src="~/scripts/bold-reports/common/bold.reports.common.min.js"></script>
+    <script src="~/scripts/bold-reports/common/bold.reports.widgets.min.js"></script>
+    <script src="~/scripts/bold-reports/common/bold.report-designer-widgets.min.js"></script>
+
+    <!--Used to render the chart item. Add this script only if your report contains the chart report item.-->
+    <script src="~/scripts/bold-reports/data-visualization/ej.chart.min.js"></script>
+
+    <!-- Report Designer component script-->
+    <script src="~/scripts/bold-reports/bold.report-designer.min.js"></script>
+    <script src="~/scripts/bold-reports/bold.report-viewer.min.js"></script>
+    <script src="~/scripts/extensions/barcode.js"></script>
+    <script src="~/scripts/extensions/qrbarcode.js"></script>
+    <script src="~/scripts/common/boldreports-interop.js"></script>
+
+    <script src="~/scripts/dependent/prism.js"></script>
+    <script src="~/scripts/dependent/prism-csharp.min.js"></script>
+
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+        </environment>
+        <environment include="Development">
+        </environment>
+
+    </div>
+
+    <script src="~/scripts/dependent/popper.min.js"></script>
+    <script src="~/scripts/dependent/bootstrap.min.js"></script>
+    <script>
+        function getBasePath() {
+            return "@Url.Content("~/")";
+        }
+    </script>
+    <script src="_framework/blazor.server.js"></script>
+</body>
+</html>

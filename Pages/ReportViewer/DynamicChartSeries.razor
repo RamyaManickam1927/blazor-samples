@@ -1,0 +1,37 @@
+﻿@page "/ReportViewer/DynamicChartSeries"
+@page "/ReportViewer/DynamicChartSeries/Preview"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JSRuntime
+@using blazor_samples.Data;
+@using blazor_samples.Data.Model;
+
+<div id="report-viewer"></div>
+
+<div id="source-description">
+    <p>
+        This demo shows the VisitorsCount, PurchaserCount, AddedToCartCount by dynamically choosing the chart series.
+    </p>
+    <p>
+        More information about the Chart report item can be found in this <a href="https://help.boldreports.com/enterprise-reporting/designer-guide/report-designer/report-items/chart/"
+                                                                             target="_blank">documentation</a> section.
+    </p>
+</div>
+
+@code {
+    // ReportViewer options
+    BoldReportViewerOptions viewerOptions = new BoldReportViewerOptions();
+
+    // Used to render the Bold Report Viewer component in Blazor page.
+    public async void RenderReportViewer()
+    {
+        viewerOptions.ReportName = "dynamic-chart-series.rdl";
+        viewerOptions.ServiceURL = Globals.SERVICE_URL;
+        await JSRuntime.InvokeVoidAsync("BoldReports.RenderViewer", "report-viewer", viewerOptions);
+    }
+    // Initial rendering of Bold Report Viewer
+    protected override void OnAfterRender(bool firstRender)
+    {
+        RenderReportViewer();
+    }
+}

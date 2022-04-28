@@ -1,0 +1,56 @@
+﻿@inject blazor_samples.Data.Model.SampleData ds
+@inject NavigationManager navManager
+@inject IJSRuntime JSRuntime
+
+<div class="ej-sidebar-content">
+    <div class="ej-sb-home ej-sb-icons" onclick="onHomeBtnClick()">
+        <span class="ej-sb-home-text">Home</span>
+    </div>
+    <div class="ej-sb-toc">
+        @{
+            var data = ds.getSampleData();
+            for (int i = 0; i < data.samples.Count; i++)
+            {
+                string tocSelection = "ej-sb-toc-card";
+                var sample = data.samples[i];
+                var isLandscape = (bool)@sample.imageDetails.isLandscape;
+                string imageClassName = isLandscape ? "ej-landscape-img" : "ej-portrait-img";
+                string bgPosition = "background-position-y:" + (-(isLandscape ? (Int32)@sample.imageDetails.index * 70 :
+                (Int32)@sample.imageDetails.index * 120)) + "px";
+                string status = (string)@sample.status;
+                if (data.samples[i].routerPath == reportSampleData) { tocSelection = "ej-sb-toc-card toc-selected"; }
+                string route = (@data.samples[i].routerPath == "") ? @data.samples[i].basePath : @data.samples[i].basePath + "/" + @data.samples[i].routerPath;
+                <a @onclick="() => { Navigate(route); }" style="text-decoration: none; color: #212529;">
+                    <div class="@tocSelection" tabindex="-1">
+                        <div class="@imageClassName" style="@bgPosition"></div>
+                        <div class="ej-sb-toc-title">@sample.sampleName</div>
+                        @{
+                            if (!String.IsNullOrEmpty(status) && (status.ToUpper() == "UPDATED" || status.ToUpper() == "NEW"))
+                            {
+                                <span class="@(isLandscape ? "ej-landscape" : "ej-portrait") ej-status-label ej-@status.ToLower()">@status</span>
+                            }
+                        }
+                    </div>
+                </a>
+            }
+        }
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public dynamic reportSampleData { get; set; }
+
+    public void Navigate(string route)
+    {
+        navManager.NavigateTo(route, true);
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("highlightSideBarItem");
+        }
+    }
+}

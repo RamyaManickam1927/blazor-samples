@@ -1,0 +1,42 @@
+﻿@page "/ReportViewer/ProductCatalog"
+@page "/ReportViewer/ProductCatalog/Preview"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JSRuntime
+@using blazor_samples.Data;
+@using blazor_samples.Data.Model;
+
+<div id="report-viewer"></div>
+
+<div id="source-description">
+    <p>
+        This report shows Mountain bike products information using the <a href="https://help.boldreports.com/on-premise/report-designer/report-items/tablix/"
+                                                                          target="_blank">Tablix</a> report item in RDLC report.
+    </p>
+    <ul>
+        <li>The table is displayed with Product no, image, name, size, weight and cost.</li>
+        <li>The data used in this table is a local JSON data.</li>
+    </ul>
+    <p>
+        More information about RDLC report can be found in this <a href="https://help.boldreports.com/javascript/report-viewer/rdlc-report/" target="_blank">documentation</a>
+        section.
+    </p>
+</div>
+
+@code {
+    // ReportViewer options
+    BoldReportViewerOptions viewerOptions = new BoldReportViewerOptions();
+
+    // Used to render the Bold Report Viewer component in Blazor page.
+    public async void RenderReportViewer()
+    {
+        viewerOptions.ReportName = "product-catalog.rdlc";
+        viewerOptions.ServiceURL = Globals.SERVICE_URL;
+        await JSRuntime.InvokeVoidAsync("BoldReports.RenderViewer", "report-viewer", viewerOptions);
+    }
+    // Initial rendering of Bold Report Viewer
+    protected override void OnAfterRender(bool firstRender)
+    {
+        RenderReportViewer();
+    }
+}

@@ -1,0 +1,202 @@
+﻿@inherits LayoutComponentBase
+@inject blazor_samples.Data.Model.SampleData ds
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using System.Text.RegularExpressions;
+    <div class="splash">
+        <div class="message">Blazor Reports</div>
+        <div class="loader">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <div class="ej-body e-hidden">
+        <Header isPreview="@isPreview" isDesigner="@isReportDesigner"></Header>
+        <div class="mobile-overlay e-hidden" @onclick="onMobileOverlayClick"></div>
+        @if (!isPreview && !isReportDesigner)
+        {
+            <div class="ej-main-parent-content">
+                <ej-sidebar>
+                    <SideBar reportSampleData="@reportRouterPath"></SideBar>
+                </ej-sidebar>
+                <div class="ej-main-child-content">
+                    <ej-main-content>
+                        <div class="ej-main-body-content">
+                            <h1 class="ej-title">
+                                @if (!reportSampleData.Equals(""))
+                                {@reportSampleData.sampleName;
+
+                            }
+                            </h1>
+                            <p class="ej-meta-description">
+                                @if (!reportSampleData.Equals(""))
+                                {@reportSampleData.metaData.description;
+                            }
+                            </p>
+                            <div id="parentTabContainer">
+                                <ul class="nav ej-nav-header" id="parentTab" role="tablist">
+                                    <li class="ej-nav-item">
+                                        <a href="#demo" @onclick="resizeViewer" data-toggle="tab" role="tab" aria-selected="true">
+                                            <span class="ej-sb-icons ej-demo-icon"></span><span>DEMO</span>
+                                        </a>
+                                    </li>
+                                    <li class="ej-nav-item source-tab">
+                                        <a href="#source" data-toggle="tab" role="tab" aria-selected="false">
+                                            <span class="ej-sb-icons ej-source-icon"></span><span>SOURCE</span>
+                                        </a>
+                                    </li>
+                                    <li class="ej-nav-item desc-tab">
+                                        <a href="#ej-description" data-toggle="tab" role="tab" aria-selected="false">
+                                            <span class="ej-sb-icons ej-description-icon"></span><span>Description</span>
+                                        </a>
+                                    </li>
+                                    <li class="ej-nav ej-nav-item ej-sb-icons">
+                                        <div class="new-tab ej-nav-sub-item">
+                                            <div class="ej-nav-new" title="Open in New Window" @onclick="onTabBtnClick" tabindex="0"></div>
+                                        </div>
+                                        <div class="ej-nav-prev ej-nav-sub-item" title="Previous Sample" @onclick="onTabPrev" tabindex="0"></div>
+                                        <div class="ej-nav-next ej-nav-sub-item" title="Next Sample" @onclick="onTabNext" tabindex="0"></div>
+                                    </li>
+                                </ul>
+                                <div class="tab-content ej-tab-content" id="parentTabContent">
+                                    <div class="tab-pane ej-tab-pane" id="demo" role="tabpanel">
+                                        <ej-sample>@Body</ej-sample>
+                                    </div>
+                                    <div class="tab-pane" id="source" role="tabpanel">
+                                        <div id="childTabContainer">
+                                            <div class="tab-content ej-tab-content" id="childTabContent">
+                                                <div class="tab-pane ej-tab-pane csharp-content  show active" id="csharp" role="tabpanel"></div>
+                                            </div>
+                                            <ul class="nav ej-nav-header" id="childtTab" role="tablist">
+                                                <li class="ej-nav-item">
+                                                    <a href="#csharp" class="active csharp-header" data-toggle="tab" role="tab" aria-selected="true"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane ej-tab-pane" id="ej-description" role="tabpanel">
+                                        <div id="description">
+                                            @if (!reportSampleData.Equals(""))
+                                            {
+                                                @((MarkupString)sDescription)
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ej-main-content>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="ej-preview-content">
+                @Body
+            </div>
+        }
+    </div>
+
+    @code {
+        dynamic reportSampleData = "";
+        string reportBasePath = "";
+        string reportRouterPath = "";
+        bool isPreview = false;
+        bool isReportDesigner = false;
+        bool isReportViewer = false;
+        bool isReportWriter = false;
+        string sourceCode = "";
+        string currentUrl = "";
+        dynamic data = "";
+        int curIndex = -1;
+        bool isFirst = false;
+        bool isLast = false;
+        string sDescription = "";
+        string reportPath = "";
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+            if (currentUrl != "")
+            {
+                isPreview = currentUrl.Contains("Preview");
+                isReportDesigner = currentUrl.Contains("ReportDesigner");
+                isReportViewer = currentUrl.Contains("ReportViewer");
+                isReportWriter = currentUrl.Contains("ReportWriter");
+                data = ds.getSampleData().samples;
+                string[] urlPaths = currentUrl.Split('/');
+                reportBasePath = urlPaths[0];
+                reportRouterPath = (isReportViewer == true) ? urlPaths[1] : "";
+                foreach (var Info in data)
+                {
+                    curIndex++;
+                    if (Info.routerPath == reportRouterPath && Info.basePath == reportBasePath)
+                    {
+                        reportSampleData = Info;
+                        isFirst = curIndex == 0 ? true : false;
+                        isLast = (curIndex == data.Count - 1) ? true : false;
+                        break;
+                    }
+                }
+                // read the file
+                if ((isReportViewer || isReportWriter) && !isPreview)
+                {
+                    reportPath = reportRouterPath == "" ? reportBasePath : reportRouterPath;
+                    sourceCode = System.IO.File.ReadAllText("Pages/" + reportBasePath + "/" + reportPath + ".razor");
+                    dynamic content = Regex.Split(sourceCode, @"(?s)(<div\sid=(\s|\S|\n)(.*?)</div>)");
+                    sourceCode = content[1] + content[4].Replace("\r\n\r\n","") + content[8];
+                    sDescription = content[5];
+                }
+            }
+        }
+
+        public async void onMobileOverlayClick() {
+            await JSRuntime.InvokeVoidAsync("onMobileOverlayClick");
+        }
+
+        public async void loadTabContent()
+        {
+            await JSRuntime.InvokeVoidAsync("loadTabContent", (object)reportSampleData, (string)reportBasePath, (string)reportRouterPath, (string)sourceCode, (bool)isPreview);
+        }
+        public async void HideSpinner()
+        {
+            await JSRuntime.InvokeVoidAsync("hideSpinner");
+        }
+        public async void OpenInNewTab()
+        {
+            await JSRuntime.InvokeVoidAsync("openInNewTab", currentUrl + "/Preview");
+        }
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if ((isReportViewer || isReportWriter) && !isPreview)
+            {
+                loadTabContent();
+            }
+            HideSpinner();
+        }
+
+        public void onTabBtnClick()
+        {
+            OpenInNewTab();
+        }
+        public void onTabNext()
+        {
+            var curSampleData = isLast ? data[0] : data[curIndex + 1];
+            string reportPath = curSampleData.routerPath =="" ? curSampleData.basePath : curSampleData.basePath  + "/" + curSampleData.routerPath;
+            NavigationManager.NavigateTo(reportPath, true);
+        }
+        public void onTabPrev()
+        {
+            var curSampleData = isFirst ? data[data.Count - 1] : data[curIndex - 1];
+            string reportPath = curSampleData.routerPath == "" ? curSampleData.basePath : curSampleData.basePath + "/" + curSampleData.routerPath;
+            NavigationManager.NavigateTo(reportPath, true);
+        }
+
+        public async Task resizeViewer()
+        {
+            await JSRuntime.InvokeVoidAsync("resizeViewer");
+        }
+    }
+

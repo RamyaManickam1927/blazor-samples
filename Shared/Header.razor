@@ -1,0 +1,84 @@
+﻿@inject blazor_samples.Data.Model.SampleData ds
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+<div class="ej-sb-header">
+    <div class="ej-sb-left-side">
+        @if (!isPreview && !isDesigner)
+        {
+            <div class="ej-sb-hamburger-icon ej-sb-icons" @onclick="onHamBurgerClick"></div>
+        }
+        <div class="ej-sb-platform-name" style="margin-left: @((isPreview || isDesigner) ? "21px" : 0)">Bold Reports for Blazor</div>
+        @if (!isPreview && !isDesigner)
+        {
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @{
+                        var data = ds.getSampleData();
+                        <a class="dropdown-item active">@data.platform</a>
+                        foreach (var platform in data.otherPlatforms)
+                        {
+                            string platformName = (string)@platform.Name;
+                            <a class="dropdown-item" @onclick="()=>{ platformSwitcher(platformName); }">@platformName</a>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="ej-sb-right-side">
+        <a href="https://help.boldreports.com" title="Documentation" target="_blank">
+            <span class="ej-sb-header-icons sb-icon-documentation"></span>
+        </a>
+        <a href="https://www.boldreports.com" target="_blank" title="Product Details">
+            <span class="ej-sb-header-icons sb-icon-product"></span>
+        </a>
+        <a href="https://www.boldreports.com/pricing/on-premise/" target="_blank" title="Download Now">
+            <span class="ej-sb-header-icons sb-icon-download"></span>
+        </a>
+        <div class="ej-sb-divider"></div>
+        <a class="ej-sb-button" href="https://on-premise-demo.boldreports.com" title="Report Server" target="_blank">Explore Report Server</a>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public bool isPreview { get; set; }
+    [Parameter]
+    public bool isDesigner { get; set; }
+
+    public async void onHamBurgerClick()
+    {
+        await JSRuntime.InvokeVoidAsync("onHamBurgerClick");
+    }
+    public async void platformSwitcher(string platform)
+    {
+        string currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        bool isViewer = currentUrl.Contains("ReportViewer");
+        string platformBasePath = isViewer ? (platform.Contains("ASP.NET") ? "ReportViewer" : "report-viewer") : (platform.Contains("ASP.NET") ? "ReportWriter" : "report-writer");
+        string[] url = currentUrl.Split("/");
+        string routerPath = url.Last();
+        bool isLocal = !url.Contains("demos.boldreports.com");
+        platform = ds.getSampleData().otherPlatforms[platform];
+        foreach (dynamic sample in ds.getSampleData().samples) {
+            if (sample.routerPath == routerPath || !isViewer)
+            {
+                if (platform.Contains("aspnet-"))
+                {
+                    routerPath = isViewer ? routerPath : "";
+                    url[0] = isLocal ? "/demos/" + platform + platformBasePath + "/" + routerPath : "/" + platform + platformBasePath + "/" + routerPath;
+                }
+                else
+                {
+                    string sampleName = isViewer ? (dynamic)sample.sampleName : "";
+                    string sName = isViewer ? string.Join('-', sampleName.Split(" ")) : "";
+                    url[0] = isLocal ? "/demos/" + platform + platformBasePath.ToLower() + "/" + sName.ToLower() : "/" + platform + platformBasePath.ToLower() + "/" + sName.ToLower();
+                }
+                break;
+            }
+        }
+        await JSRuntime.InvokeVoidAsync("openInCurrentWindow", url[0]);
+    }
+}
+

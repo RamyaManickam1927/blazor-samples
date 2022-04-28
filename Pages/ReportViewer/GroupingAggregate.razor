@@ -1,0 +1,48 @@
+﻿@page "/ReportViewer/GroupingAggregate"
+@page "/ReportViewer/GroupingAggregate/Preview"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components
+@inject IJSRuntime JSRuntime
+@using blazor_samples.Data;
+@using blazor_samples.Data.Model;
+
+<div id="report-viewer"></div>
+
+<div id="source-description">
+    <p>
+        The Grouping Aggregate RDL report is designed with the <b>Grouping</b> and <b>Total</b> concept to organize and summarize the data using Tablix data region.
+    </p>
+    <p>
+        It breaks the information down into quarterly intervals, so that you can analyze the information according to the order year.
+    </p>
+    <ul>
+        <li><b>Row grouping</b> is used to group the data based on quarterly sale.</li>
+        <li>Using the <code>Total</code> feature, the total sales amount for each quarter and year is calculated in Tablix data region.</li>
+        <li>
+            The sales value for each quarter is formatted in the <code>Currency </code> <a href="https://help.boldreports.com/on-premise/report-designer/compose-report/format-data/"
+                                                                                           target="_blank">format</a> to improve the readability of report.
+        </li>
+    </ul>
+    <p>
+        More information about the Tablix data region can be found in this <a href="https://help.boldreports.com/on-premise/report-designer/report-items/tablix/"
+                                                                              target="_blank">documentation</a> section.
+    </p>
+</div>
+
+@code {
+    // ReportViewer options
+    BoldReportViewerOptions viewerOptions = new BoldReportViewerOptions();
+
+    // Used to render the Bold Report Viewer component in Blazor page.
+    public async void RenderReportViewer()
+    {
+        viewerOptions.ReportName = "grouping-aggregate.rdl";
+        viewerOptions.ServiceURL = Globals.SERVICE_URL;
+        await JSRuntime.InvokeVoidAsync("BoldReports.RenderViewer", "report-viewer", viewerOptions);
+    }
+    // Initial rendering of Bold Report Viewer
+    protected override void OnAfterRender(bool firstRender)
+    {
+        RenderReportViewer();
+    }
+}

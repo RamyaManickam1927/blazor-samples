@@ -1,0 +1,11 @@
+﻿@page "/"
+@inject NavigationManager NavManager
+
+@code{
+    private string currentUrl;
+    protected override void OnInitialized()
+    {
+        currentUrl = NavManager.Uri.EndsWith('/') ? NavManager.Uri : NavManager.Uri + "/";
+        NavManager.NavigateTo(currentUrl + "ReportViewer/ProductLineSales");
+    }
+}

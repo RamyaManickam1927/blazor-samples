@@ -1,0 +1,361 @@
+{
+  "customNames": [
+    "app",
+    "barcode",
+    "northwind"
+  ],
+  "otherPlatforms": {
+    "Angular": "angular/#/",
+    "JavaScript": "javascript/#/",
+    "React": "react/#/",
+    "ASP.NET MVC": "aspnet-mvc/",
+    "ASP.NET Core": "aspnet-core/",
+    "ASP.NET WebForms": "aspnet-web-forms/"
+  },
+  "platform": "Blazor",
+  "samples": [
+    {
+      "routerPath": "ProductLineSales",
+      "sampleName": "Product Line Sales",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 7
+      },
+      "status": "",
+      "metaData": {
+        "description": "The Product Line Sales report displays sales details organized by category and subcategory of products using cascading parameters in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "CompanySales",
+      "sampleName": "Company Sales",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 1
+      },
+      "status": "",
+      "metaData": {
+        "description": "Company Sales report shows product sales against year in matrix format using SSRS Tablix report item in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "MailMerge",
+      "sampleName": "Mail Merge",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 3
+      },
+      "metaData": {
+        "description": "Mail merge shows to envelope the employee details using SSRS List report item in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "SalesReport",
+      "sampleName": "Sales Report",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 9
+      },
+      "metaData": {
+        "description": "This demo shows the sales order details using RDL basic table with currency formatting in price textbox fields in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "TerritorySales",
+      "sampleName": "Territory Sales",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 5
+      },
+      "metaData": {
+        "description": "This demo shows the sales territory and its total sales using drilldown with  SSRS matrix report in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "ConditionalRowFormatting",
+      "sampleName": "Conditional Row Formatting",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 0
+      },
+      "metaData": {
+        "description": "This demo shows the customer details in SSRS table report item and details are highlighted based on conditional row formatting in Blazor Bold Report Viewer. "
+      }
+    },
+    {
+      "routerPath": "Barcode",
+      "sampleName": "Barcode",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 0
+      },
+      "metaData": {
+        "description": "The barcode demo shows the available 1D, 2D and QR barcode types rendered in Blazor Bold Report Viewer through RDL Custom Report Item."
+      }
+    },
+    {
+      "routerPath": "CustomerSupportAnalysis",
+      "sampleName": "Customer Support Analysis",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 1
+      },
+      "metaData": {
+        "description": "This demo shows customer support analysis with SSRS drill through to explore details in another report based on user click action in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "TicketsSalesAnalysis",
+      "sampleName": "Tickets Sales Analysis",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 10
+      },
+      "metaData": {
+        "description": "This RDL template shows the ticket sales analysis details of movie tickets using SSRS data region report items like chart and table in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "WebsiteVisitorAnalysis",
+      "sampleName": "Website Visitor Analysis",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 11
+      },
+      "metaData": {
+        "description": "This RDL report template shows website visitor analysis details using SSRS column chart, pie chart, line chart and table data item in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "PatientExperienceAnalysis",
+      "sampleName": "Patient Experience Analysis",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 3
+      },
+      "metaData": {
+        "description": "This demo shows the patient analysis report of a health care using SSRS doughnut chart, line chart and basic table data regions in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "PersonalExpenseAnalysis",
+      "sampleName": "Personal Expense Analysis",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 5
+      },
+      "metaData": {
+        "description": "This report shows personal expense analysis details using SSRS image, text box, line, rectangle, chart and table report items in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "NorthwindProductsSuppliersReport",
+      "sampleName": "Northwind Products and Suppliers Report",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 4
+      },
+      "metaData": {
+        "description": "This demo shows the product and suppliers details using SSRS pyramid, bar, column charts and table widget in Blazor Bold Report Viewer.",
+        "title": "Northwind Products Report"
+      }
+    },
+    {
+      "routerPath": "SalesOrderDetail",
+      "sampleName": "Sales Order Detail",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 4
+      },
+      "metaData": {
+        "description": "This report template shows the sales order details based on order number using the RDL report parameters, rectangle, line and table in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "Invoice",
+      "sampleName": "Invoice",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 2
+      },
+      "metaData": {
+        "description": "This demo shows the sales invoice details and the usage of report viewer parameters, expressions, and calculated fields using SSRS Tablix report item in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "ProductCatalog",
+      "sampleName": "Product Catalog",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 6
+      },
+      "metaData": {
+        "description": "This demos allows you to view the product catalog RDLC that exist on the local file system with JSON array and custom business object data collection in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "SalesByYear",
+      "sampleName": "Sales By Year",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 8
+      },
+      "metaData": {
+        "description": "This demos allows you to view the sales by year RDLC that exist on the local file system with JSON array and custom business object data collection in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "GroupingAggregate",
+      "sampleName": "Grouping Aggregate",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 2
+      },
+      "metaData": {
+        "description": "This demo shows product sales total based on  quarterly wise RDL tablix grouping in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "ProductDetails",
+      "sampleName": "Product Details",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 6
+      },
+      "metaData": {
+        "description": "This demo shows the product details using the SSRS table report item with barcodes rendered in Blazor Bold Report Viewer through RDL Custom Report Item."
+      }
+    },
+    {
+      "routerPath": "LoadLargeData",
+      "sampleName": "Load Large Data",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 9
+      },
+      "metaData": {
+        "description": "This demo shows the sales order details using RDLC basic table with currency formatting in price textbox fields in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "ConsolidatedBalanceSheet",
+      "sampleName": "Consolidated Balance Sheet",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 12
+      },
+      "metaData": {
+        "description": "This demos allows shows the consolidated balance sheet RDLC report represents the assets and liabilities of a company in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "Paystub",
+      "sampleName": "Paystub",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 7
+      },
+      "metaData": {
+        "description": "This demos shows the Paystub report represents the payslip of a company in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "DynamicChartSeries",
+      "sampleName": "Dynamic Chart Series",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 8
+      },
+      "metaData": {
+        "description": "This demos shows the Paystub report represents the payslip of a company in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "DataBar",
+      "sampleName": "Data Bar",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 9
+      },
+      "status":"New",
+      "metaData": {
+        "description": "This demo represents company sales against year in table format with data bar report item in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "SparkLine",
+      "sampleName": "Spark Line",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 10
+      },
+      "status":"New",
+      "metaData": {
+        "description": "This demo shows the company sales data with sparkline report item to represents the sales trend in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "DynamicColumns",
+      "sampleName": "Dynamic Columns",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 13
+      },
+      "status":"New",
+      "metaData": {
+        "description": "This demos allows you to choose the column of the table dynamically in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "ExternalParameterReport",
+      "sampleName": "External Parameter Report",
+      "basePath": "ReportViewer",
+      "imageDetails": {
+        "isLandscape": false,
+        "index": 7
+      },
+      "status": "New",
+      "metaData": {
+        "description": "The Product Line Sales report displays sales details organized by category and subcategory of products using external cascading parameters in Blazor Bold Report Viewer."
+      }
+    },
+    {
+      "routerPath": "",
+      "sampleName": "Report Writer",
+      "basePath": "ReportWriter",
+      "imageDetails": {
+        "isLandscape": true,
+        "index": 11
+      },
+      "metaData": {
+        "description": "This demos allows you to export the RDL or RDLC report with popular file formats like PDF, HTML, Microsoft Word, and Microsoft Excel without previewing the report in viewer using Blazor Bold Report Writer."
+      }
+    }
+  ]
+}
